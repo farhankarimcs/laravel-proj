@@ -10,7 +10,7 @@
     <form action="/task" method="post">
         @csrf
         <label for="name">Name</label>
-        <input type="text" name="name" id="name"><br/>
+        <input type="text" name="name"  id="name"><br/>
         <label for="name">Description</label>
         <input type="text" name="description" id="description"><br/>
        <button type="submit">Submit</button>

@@ -15,8 +15,9 @@ class TaskController extends Controller
     public function index()
     {
         //
-        $data=Task::all();
+        $data=Task::orderBy('id','desc')->get();
         return view('task.index',compact('data'));
+
     }
 
     /**
@@ -63,7 +64,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        $task=Task::find($task->id);
+        return view('task.edit',compact('task'));
     }
 
     /**
@@ -75,7 +77,9 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $task=Task::find($task->id);
+        $task->update($request->all());
+        return redirect()->route('task.index');
     }
 
     /**
@@ -87,5 +91,7 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         //
+        Task::destroy($task->id);
+        return redirect()->back();
     }
 }
