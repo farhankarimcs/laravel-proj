@@ -12,6 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 table-responsive">
+                
                 <table class="table table-striped" border="2">
                     <tr>
                         <td><strong>ID</strong></td>
@@ -59,6 +60,7 @@
                  </tr>
                 @endforelse
              </table>
+             {{$data->links('pagination::bootstrap-4')}}
             </div>
         </div>
     </div>

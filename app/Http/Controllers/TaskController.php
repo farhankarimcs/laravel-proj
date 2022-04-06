@@ -15,7 +15,7 @@ class TaskController extends Controller
     public function index()
     {
         //
-        $data=Task::orderBy('id','desc')->get();
+        $data=Task::orderBy('id','desc')->paginate(5);
         return view('task.index',compact('data'));
 
     }
@@ -40,8 +40,14 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'name'=>'required|min:4|max:255',
+            'description'=>'required|min:4|max:255',
+            'completed'=>'required|in:0,1'
+        ]);
+        
         Task::create($request->all());
-        return redirect()->back();
+        return redirect()->back()->with('success','Task created successfully');
     }
 
     /**
@@ -77,6 +83,11 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        $validated = $request->validate([
+            'name'=>'required|min:4|max:255',
+            'description'=>'required|min:4|max:255',
+            'completed'=>'nullable|integer'
+        ]);
         $task=Task::find($task->id);
         $task->update($request->all());
         return redirect()->route('task.index');
