@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Task</title>
-</head>
-<body>
+
+@extends('root')
+@section('container')
+<div class="col-12">
     <form action="{{ route('task.update',$task->id) }}" method="post">
         @csrf
         @method('PUT')
@@ -16,9 +11,7 @@
         {{$errors->first('name')}}
         @endif
         <label for="name">Description</label>
-        <textarea name="description" id="description" cols="30" rows="10">
-            {{$task->description}}
-        </textarea>
+        <textarea name="description" id="description" cols="30" rows="10">{{$task->description}}</textarea>
         @if ($errors->has('description'))
         {{$errors->first('description')}}
         @endif
@@ -34,5 +27,9 @@
         <br>
         <button type="submit">Submit</button>
     </form>
-</body>
-</html>
+
+</div>    
+@endsection
+
+
+ 

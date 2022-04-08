@@ -1,42 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Task</title>
-</head>
-<body>
-  @if ($message=Session::get('success'))
-        <h4>{{$message}}</h4>
-  @endif
+@extends('root')
+@section('container')
+<div class="col-12">
+    @if ($message=Session::get('success'))
+    <h4>{{$message}}</h4>
+@endif
+<div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">Add Task</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
     <form action="{{route('task.store')}}" method="post">
         @csrf
-         @method('POST')
-        <label for="name">Name</label>
-        <input type="text" name="name"  id="name">
-        @if ($errors->has('name'))
-        {{$errors->first('name')}}
-        @endif
-        <br/>
-        <label for="name">Description</label>
-        <input type="text" name="description" id="description">
-        <br/>
-        @if ($errors->has('description'))
-        {{$errors->first('description')}}
-        @endif
-        <br/>
-        <label for="completed">Completed?</label>
-        <select name="completed" id="completed">
-            <option value=""></option>
-            <option value="0">No</option>
-            <option value="1">Yes</option>
-        </select>
-        @if ($errors->has('completed'))
-        {{$errors->first('completed')}}
-        @endif
-        <br>
-        <button type="submit">Submit</button>
+        @method('POST')
+      <div class="card-body">
+      
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter Name">
+            @if ($errors->has('name'))
+            <div class="bg-danger color-palette">
+                {{$errors->first('name')}}
+            </div>
+              @endif
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+<textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>            @if ($errors->has('description'))
+<div class="bg-danger color-palette">
+    {{$errors->first('description')}}
+</div>
+              @endif
+          </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
     </form>
-</body>
-</html>
+  </div>
+
+</div>
+  
+@endsection
