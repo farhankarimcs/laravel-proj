@@ -26,7 +26,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-
+// Route::post("/check",[TaskController::class,'store'])->name('check');
 Route::get('/admin',function(){
     return view("root");
 });

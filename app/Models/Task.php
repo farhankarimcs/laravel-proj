@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $fillable=['name','description','completed'];
+    protected $fillable=['name','description','completed','img_path'];
     use HasFactory;
     use SoftDeletes;
 }

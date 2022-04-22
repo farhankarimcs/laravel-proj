@@ -39,15 +39,18 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $validated = $request->validate([
             'name'=>'required|min:4|max:255',
             'description'=>'required|min:4|max:255',
-            'completed'=>'required|in:0,1'
+            'completed'=>'required',
+            'img_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
-        
-        Task::create($request->all());
-        return redirect()->back()->with('success','Task created successfully');
+        $input=$request->all();
+        $profileImage = date('YmdHis') . "." . $request->file('img_path')->getClientOriginalExtension();
+        $request->img_path->move(public_path('img'), $profileImage);
+        $input['img_path'] = "$profileImage";
+        Task::create($input);
+        return redirect()->back()->with('success','Task created successfully'); 
     }
 
     /**
