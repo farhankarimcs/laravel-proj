@@ -9,6 +9,7 @@
                         <td><strong>Name</strong></td>
                         <td><strong>Description</strong></td>
                         <td><strong>Completed</strong></td>
+                        <td><strong>Img</strong></td>
                         <td><strong>Actions</strong></td>
                     </tr>
                    
@@ -17,6 +18,7 @@
                      <td>{{$item->id}}</td>
                      <td>{{$item->name}}</td>
                      <td>{{$item->description}}</td>
+                     <td>{{$item->img_path}}</td>
                      <td>
                          @if ($item->completed==1)
                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">

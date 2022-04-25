@@ -2,7 +2,7 @@
 @extends('root')
 @section('container')
 <div class="col-12">
-    <form action="{{ route('task.update',$task->id) }}" method="post">
+    <form action="{{ route('task.update',$task->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <label for="name">Name</label>
@@ -24,6 +24,9 @@
         @if ($errors->has('completed'))
         {{$errors->first('completed')}}
         @endif
+        <br>
+        <input type="file" name="img_path" id="img_path">
+        <img src="/img/{{$task->img_path}}" width="400" alt="" srcset="">
         <br>
         <button type="submit">Submit</button>
     </form>

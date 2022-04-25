@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class TaskController extends Controller
 {
@@ -15,9 +16,7 @@ class TaskController extends Controller
     public function index()
     {
         //
-        $data=Task::orderBy('id','desc')->paginate(5);
-        return view('task.index',compact('data'));
-
+        return view("task.index")
     }
 
     /**
@@ -86,14 +85,22 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        $validated = $request->validate([
-            'name'=>'required|min:4|max:255',
-            'description'=>'required|min:4|max:255',
-            'completed'=>'nullable|integer'
-        ]);
+        
+        $input=$request->all();
+        
+        if($img=$request->file('img_path')){
+            // var_dump($input);
+            $profileImage = date('YmdHis') . "." . $request->file('img_path')->getClientOriginalExtension();
+            $request->img_path->move(public_path('img'), $profileImage);
+            $input['img_path'] = "$profileImage";
+        }
+        else{
+            unset($input["img_path"]);
+        }
+
         $task=Task::find($task->id);
-        $task->update($request->all());
-        return redirect()->route('task.index');
+        $task->update($input);
+        return redirect()->route('task.index')->with('success','Task updated successfully');
     }
 
     /**
@@ -106,6 +113,9 @@ class TaskController extends Controller
     {
         //
         Task::destroy($task->id);
+        if($task->img_path){
+            unlink(public_path()."/img/20220425050329.jpg");
+        }
         return redirect()->back();
     }
 }
