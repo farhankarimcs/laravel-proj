@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -15,10 +16,35 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
-        return view("task.index")
+        $user=auth()->user();
+        if($user){
+            $data=User::find($user=auth()->user()->id)->tasks;
+            dd($data);
+        }
+        else{
+            $data=Task::all();
+            dd($data);
+
+        }
+
+        //find username with task
+        // dd(Task::find(5)->user->email);
+        
     }
 
+    public function mytasks()
+    {
+        $user=auth()->user();
+        if($user){
+            $data=User::find($user=auth()->user()->id)->tasks;
+            return view("task.mytasks",compact('data'));
+        }
+        else{
+            $data=Task::all();
+            return view("task.mytasks",compact('data'));
+
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *

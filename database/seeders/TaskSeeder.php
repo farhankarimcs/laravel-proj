@@ -17,6 +17,7 @@ class TaskSeeder extends Seeder
         DB::table('tasks')->insert([
             'name' => Str::random(10),
             'description' => Str::random(50),
+            'user_id'=>Faker::randomDigit(10)
             
         ]);
         //
