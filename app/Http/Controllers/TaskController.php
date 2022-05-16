@@ -40,8 +40,8 @@ class TaskController extends Controller
             return view("task.mytasks",compact('data'));
         }
         else{
-            $data=Task::all();
-            return view("task.mytasks",compact('data'));
+            $data=Task::paginate(5);
+            return view("task.index",compact('data'));
 
         }
     }
