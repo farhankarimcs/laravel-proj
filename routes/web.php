@@ -15,7 +15,6 @@ use App\Http\Controllers\TaskController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', [Controller::class,'index']);
 Route::get('/contact',[Controller::class,'contact_us']);
 Route::get('/about',[Controller::class,'about_us']);
@@ -31,3 +30,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/admin',function(){
     return view("root");
 });
+Route::get('/manytomany',[TaskController::class,'insertTag']);

@@ -8,6 +8,7 @@
                         <td><strong>ID</strong></td>
                         <td><strong>Name</strong></td>
                         <td><strong>Description</strong></td>
+                        <td><strong>Tags</strong></td>
                         <td><strong>Completed</strong></td>
                         <td><strong>Img</strong></td>
                         <td><strong>Actions</strong></td>
@@ -18,6 +19,14 @@
                      <td>{{$item->id}}</td>
                      <td>{{$item->name}}</td>
                      <td>{{$item->description}}</td>
+                     <td>
+                     @forelse ( $item->tags as $t)
+                     <span class="badge rounded-pill bg-primary">{{$t->name}}</span>
+                     @empty
+                        
+                     @endforelse
+
+                     </td>
                      <td>{{$item->img_path}}</td>
                      <td>
                          @if ($item->completed==1)
@@ -52,7 +61,6 @@
                  </tr>
                 @endforelse
              </table>
-             {{$data->links('pagination::bootstrap-4')}}
             </div>
 
 @endsection

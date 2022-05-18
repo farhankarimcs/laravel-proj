@@ -19,7 +19,7 @@ class TaskController extends Controller
         $user=auth()->user();
         if($user){
             $data=User::find($user=auth()->user()->id)->tasks;
-            dd($data);
+            return view('task.index',compact('data'));
         }
         else{
             $data=Task::all();
@@ -143,5 +143,20 @@ class TaskController extends Controller
             unlink(public_path()."/img/20220425050329.jpg");
         }
         return redirect()->back();
+    }
+
+    public function insertTag()
+    {
+        // $task=new Task;
+        // $task->name="Buy milk carton";
+        // $task->description="asdads asas dsa";
+        // $task->completed=1;
+        // $task->save();
+
+        $mytask=Task::find(811);
+        $mytask->tags()->attach([77,67,97]);
+        
+
+        return 'Success';
     }
 }

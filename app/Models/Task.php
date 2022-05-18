@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Tag;
 
 class Task extends Model
 {
@@ -21,6 +22,6 @@ class Task extends Model
 
     public function tags()
     {
-        return $this->morphToMany(Tag::class,'taggable');
+        return $this->belongsToMany(Tag::class,'taggable');
     }
 }
